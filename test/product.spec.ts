@@ -72,5 +72,26 @@ describe('testing product endpoints', () => {
             })
         })
     })
+
+    describe('test update product endpoint', () => {
+        describe('when the user is logged in', () => {
+            it('should return an updated product', async () => {
+                const jwt = signJWT(userDetails)
+                const {statusCode, body} = await supertest(app).post(`/api/products`).set('Authorization', `Bearer ${jwt}`).send(productDetails)
+
+                expect(statusCode).toBe(200)
+
+                const update = {"title": "Updated Product", "inStock": false}
+
+                const {statusCode: updateStatusCode, body: updateBody} = await supertest(app).put(`/api/products/${body.productId}`).set('Authorization', `Bearer ${jwt}`).send(update)
+
+                expect(updateStatusCode).toBe(200)
+                expect(updateBody.title).toEqual(update.title)
+                expect(updateBody.inStock).toEqual(update.inStock)
+                expect(updateBody.title).not.toBe(body.title)
+                expect(updateBody.inStock).not.toBe(body.inStock)
+            })
+        })
+    })
 })
 

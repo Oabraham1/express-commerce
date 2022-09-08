@@ -33,7 +33,7 @@ export async function updateProductHandler(req: Request<UpdateProductInput['para
     try {
         const productId = req.params.productId
         const update = req.body
-        const product = await findProduct({productId})
+        const product = await findProduct({$eq: {productId}})
 
         if(!product){
             return res.sendStatus(404)
