@@ -1,11 +1,12 @@
 import express from "express"
 import deserializeUser from "../middleware/deserializeuser"
 import routes from "../routes"
-import { rateLimit } from "express-rate-limit"
+
+var RateLimit = require("express-rate-limit")
 
 function createServer(){
     const app = express()
-    const limiter = rateLimit({
+    const limiter = RateLimit({
         windowMs: 1*60*1000,
         max: 5
     })
