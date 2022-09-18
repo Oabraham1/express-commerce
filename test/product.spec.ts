@@ -46,7 +46,7 @@ describe('testing product endpoints', () => {
 
         describe('given product does not exist', () => {
             it('should return a 404', async () => {
-                const productId = 'product-123'
+                const productId = 'product-1234'
                 await supertest(app).get(`/api/products/${productId}`).expect(404)
             })
         })
