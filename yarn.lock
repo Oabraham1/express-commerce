@@ -2534,9 +2534,9 @@ mongodb-memory-server-core@8.8.0:
     uuid "^8.3.1"
     yauzl "^2.10.0"
 
-mongodb-memory-server-core@8.9.1:
-  version "8.9.1"
-  resolved "https://registry.npmjs.org/mongodb-memory-server-core/-/mongodb-memory-server-core-8.9.1.tgz"
+mongodb-memory-server-core@8.9.3:
+  version "8.9.3"
+  resolved "https://registry.yarnpkg.com/mongodb-memory-server-core/-/mongodb-memory-server-core-8.9.3.tgz#dd9ebf9b8d35c9bb9beacc52fba87e2ca40f3363"
   dependencies:
     "@types/tmp" "^0.2.3"
     async-mutex "^0.3.2"
@@ -2562,11 +2562,11 @@ mongodb-memory-server@8.8.0:
     mongodb-memory-server-core "8.8.0"
     tslib "^2.4.0"
 
-mongodb-memory-server@^8.9.1:
-  version "8.9.1"
-  resolved "https://registry.npmjs.org/mongodb-memory-server/-/mongodb-memory-server-8.9.1.tgz"
+mongodb-memory-server@^8.9.3:
+  version "8.9.3"
+  resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-8.9.3.tgz#18c23110e0a806ffffcff18e729b35879cd294bb"
   dependencies:
-    mongodb-memory-server-core "8.9.1"
+    mongodb-memory-server-core "8.9.3"
     tslib "^2.4.0"
 
 mongodb@4.9.1, mongodb@~4.9.0:
