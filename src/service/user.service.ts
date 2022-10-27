@@ -18,7 +18,7 @@ export async function createUser(
 }
 
 export async function validatePassword({email, password}: {email: string, password: string}){
-    const user = await UserModel.findOne({$eq : {email}})
+    const user = await UserModel.findOne({email: {$eq: email}})
 
     if(!user){
         return false

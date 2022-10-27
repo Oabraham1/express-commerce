@@ -1,10 +1,9 @@
 import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from "mongoose"
 import ProductModel, { ProductDocument } from "../models/product.model"
 
-export async function createProduct(input: DocumentDefinition<Omit<ProductDocument, 'createdOn' | 'productId'>>){
+export async function createProduct(input: DocumentDefinition<Omit<ProductDocument, 'createdOn' | 'productId'>>): Promise<ProductDocument> {
     try {
-        const product = await ProductModel.create(input)
-        return product
+        return await ProductModel.create(input)
     } 
     catch (e: any) {
         throw new Error(e)
@@ -16,12 +15,9 @@ export async function findProduct(query: FilterQuery<ProductDocument>){
 }
 
 export async function updateProduct(
-    query: FilterQuery<ProductDocument>, update: UpdateQuery<ProductDocument>, options: QueryOptions, 
+    query: FilterQuery<ProductDocument>, update: UpdateQuery<ProductDocument>, options: QueryOptions
 ){
-    try {
-        return ProductModel.findOneAndUpdate(query, [update], options)
-    } 
-    catch (e: any) {
-        throw new Error(e)
-    }
+    // Escape $ in update query
+    const updateQuery = JSON.parse(JSON.stringify(update).replace(/\$/g, "$$$$"))
+    return ProductModel.findOneAndUpdate(query, updateQuery, options)
 }

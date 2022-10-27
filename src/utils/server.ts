@@ -2,13 +2,14 @@ import express from "express"
 import deserializeUser from "../middleware/deserializeuser"
 import routes from "../routes"
 
-var RateLimit = require("express-rate-limit")
+const mongoSanitize = require("express-mongo-sanitize")
+const RateLimit = require("express-rate-limit")
 
 function createServer(){
     const app = express()
     const limiter = RateLimit({
-        windowMs: 1*60*1000,
-        max: 5
+        windowMs: 60*1000,
+        max: 10
     })
 
     app.use(limiter)
@@ -16,6 +17,14 @@ function createServer(){
     app.use(express.json())
 
     app.use(deserializeUser)
+
+    app.use(mongoSanitize())
+
+    app.use(
+        mongoSanitize({
+          replaceWith: '_',
+        }),
+    );
 
     routes(app)
 

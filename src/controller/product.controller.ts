@@ -32,14 +32,15 @@ export async function findProductHandler(req: Request<FindProductInput['params']
 export async function updateProductHandler(req: Request<UpdateProductInput['params']>, res: Response) {
     try {
         const productId = req.params.productId
-        const update = req.body
-        const product = await findProduct({productId})
+        const update = JSON.parse(JSON.stringify({...req.body}).replace(/\$/g, "$$$$"))
+        const options = {new: true}
+        const product = await findProduct({productId: {$eq: productId}})
 
         if(!product){
             return res.sendStatus(404)
         }
 
-        const updatedProduct = await updateProduct({productId}, update, {new: true})
+        const updatedProduct = await updateProduct({productId}, update, options)
 
         return res.send(updatedProduct)
     }
