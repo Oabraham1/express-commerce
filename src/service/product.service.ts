@@ -19,24 +19,10 @@ export async function updateProduct(
     query: FilterQuery<ProductDocument>, update: UpdateQuery<ProductDocument>, options: QueryOptions, 
 ){
     try {
-        // Sanitize update
-        const updateObject = update.$eq ? update.$eq : update
-        if (updateObject?.title) {
-            updateObject.title = updateObject.title.trim()
-        }
-        if (updateObject?.sellerName) {
-            updateObject.sellerName = updateObject.sellerName.trim()
-        }
-        if (updateObject?.sellerStatus) {
-            updateObject.sellerStatus = updateObject.sellerStatus.map((status: string) => status.trim())
-        }
-        if (updateObject?.price) {
-            updateObject.price = parseFloat(updateObject.price)
-        }
-        if (updateObject?.inStock) {
-            updateObject.inStock = updateObject.inStock === 'true'
-        }
-        return await ProductModel.findOneAndUpdate(query, updateObject, options)
+        // Sanitize update to ensure that untrusted data is interpreted as a literal value and not as a query object
+        const sanitizedUpdate = { $set: update }
+        const product = await ProductModel.findOneAndUpdate(query, sanitizedUpdate, options)
+        return product
     } 
     catch (e: any) {
         throw new Error(e)
