@@ -19,7 +19,24 @@ export async function updateProduct(
     query: FilterQuery<ProductDocument>, update: UpdateQuery<ProductDocument>, options: QueryOptions, 
 ){
     try {
-        return ProductModel.findOneAndUpdate(query, update, options)
+        // Sanitize update
+        const updateObject = update.$set
+        if (updateObject?.title) {
+            updateObject.title = updateObject.title.trim()
+        }
+        if (updateObject?.sellerName) {
+            updateObject.sellerName = updateObject.sellerName.trim()
+        }
+        if (updateObject?.sellerStatus) {
+            updateObject.sellerStatus = updateObject.sellerStatus.map((status: string) => status.trim())
+        }
+        if (updateObject?.price) {
+            updateObject.price = parseFloat(updateObject.price)
+        }
+        if (updateObject?.inStock) {
+            updateObject.inStock = updateObject.inStock === 'true'
+        }
+        return await ProductModel.findOneAndUpdate(query, update, options)
     } 
     catch (e: any) {
         throw new Error(e)
