@@ -20,7 +20,7 @@ export async function updateProduct(
 ){
     try {
         // Sanitize update
-        const updateObject = update.$set
+        const updateObject = update.$eq ? update.$eq : update
         if (updateObject?.title) {
             updateObject.title = updateObject.title.trim()
         }
@@ -36,7 +36,7 @@ export async function updateProduct(
         if (updateObject?.inStock) {
             updateObject.inStock = updateObject.inStock === 'true'
         }
-        return await ProductModel.findOneAndUpdate(query, update, options)
+        return await ProductModel.findOneAndUpdate(query, updateObject, options)
     } 
     catch (e: any) {
         throw new Error(e)
