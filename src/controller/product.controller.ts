@@ -32,8 +32,7 @@ export async function findProductHandler(req: Request<FindProductInput['params']
 export async function updateProductHandler(req: Request<UpdateProductInput['params']>, res: Response) {
     try {
         const productId = req.params.productId
-        // Escape $ in update query
-        const update = JSON.parse(JSON.stringify(req.body).replace(/\$/g, "$$$$"))
+        const update = JSON.parse(JSON.stringify({...req.body}).replace(/\$/g, "$$$$"))
         const options = {new: true}
         const product = await findProduct({productId: {$eq: productId}})
 
