@@ -3,9 +3,7 @@ import OrderModel, { OrderDocument } from "../models/order.model"
 
 export async function createOrder(input: DocumentDefinition<Omit<OrderDocument, 'createdOn' | 'orderId'>>){
     try {
-        const order = await OrderModel.create(input)
-
-        return order
+        return await OrderModel.create(input)
     }
     catch (e: any) {
         throw new Error(e)

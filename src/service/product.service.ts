@@ -17,10 +17,7 @@ export async function findProduct(query: FilterQuery<ProductDocument>){
 export async function updateProduct(
     query: FilterQuery<ProductDocument>, update: UpdateQuery<ProductDocument>, options: QueryOptions
 ){
-    try {
-        return ProductModel.findOneAndUpdate(query, update, options).lean()
-    } 
-    catch (e: any) {
-        throw new Error(e)
-    }
+    // Escape $ in update query
+    const updateQuery = JSON.parse(JSON.stringify(update).replace(/\$/g, "$$$$"))
+    return ProductModel.findOneAndUpdate(query, updateQuery, options)
 }

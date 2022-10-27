@@ -3,12 +3,12 @@ import deserializeUser from "../middleware/deserializeuser"
 import routes from "../routes"
 
 const mongoSanitize = require("express-mongo-sanitize")
-var RateLimit = require("express-rate-limit")
+const RateLimit = require("express-rate-limit")
 
 function createServer(){
     const app = express()
     const limiter = RateLimit({
-        windowMs: 1*60*1000,
+        windowMs: 60*1000,
         max: 10
     })
 
