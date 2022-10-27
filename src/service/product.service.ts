@@ -20,9 +20,8 @@ export async function updateProduct(
 ){
     try {
         // Sanitize update to ensure that untrusted data is interpreted as a literal value and not as a query object
-        const sanitizedUpdate = { $set: update }
-        const product = await ProductModel.findOneAndUpdate(query, sanitizedUpdate, options)
-        return product
+        const sanitizedUpdate = update.$pullAll ? update : { $set: update }
+        return await ProductModel.findOneAndUpdate(query, sanitizedUpdate, options).lean()
     } 
     catch (e: any) {
         throw new Error(e)
