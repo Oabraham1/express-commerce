@@ -2826,9 +2826,9 @@ pino-std-serializers@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/pino-std-serializers/-/pino-std-serializers-6.0.0.tgz"
 
-pino@*, pino@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.npmjs.org/pino/-/pino-8.5.0.tgz"
+pino@*, pino@^8.8.0:
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-8.8.0.tgz#1f0d6695a224aa06afc7ad60f2ccc4772d3b9233"
   dependencies:
     atomic-sleep "^1.0.0"
     fast-redact "^3.1.1"
